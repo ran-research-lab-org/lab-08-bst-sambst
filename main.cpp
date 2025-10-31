@@ -4,6 +4,7 @@
 #include <sstream>
 #include <stdexcept>
 
+
 using namespace std;
 
 TEST_CASE("BinarySearchTree basic operations") {
@@ -17,7 +18,10 @@ TEST_CASE("BinarySearchTree basic operations") {
   B.insert(1);
   B.insert(56);
   CHECK(B.toInorderStr() == "1,2,4,10,15,31,56");
+  auto result = B.BFT();
+INFO("BFT() returned: " << result);
   CHECK(B.BFT() == "[[10],[4,15],[2,31],[1,56]]");
+ 
   BinarySearchTree<int> C;
   for (auto e :
        {16, 8, 24, 28, 20, 12, 4, 2, 6, 10, 14, 18, 22, 26, 30, 15, 7, 3}) {

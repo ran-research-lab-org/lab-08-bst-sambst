@@ -5,6 +5,7 @@
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
+#include <queue>
 using namespace std;
 
 template <typename T> string toStr(const T &value) {
@@ -111,12 +112,65 @@ public:
   // Remove x from the tree. Nothing is done if x is not found.
   void remove(const Comparable &x) { remove(x, root); }
 
+// string bft public call
   string BFT() const {
-    string st;
-    return st;
+  queue< BinaryNode* > q;
+  string st;
+  if(root!=NULL) q.push(root); // put the root in the queue
+  st+= "[";
+  while(!q.empty()){ // while queue exists, start doing brackets
+    st += "[";
+    int minisize = q.size();
+    for (int p = 0; p < minisize ;p++) { // for current numbers in the queue, add them to a bracket
+
+      BinaryNode *f = q.front();q.pop();
+      st+= to_string(f->element);
+      if (p != minisize -1){ st += ",";}
+      
+
+      if (f->left  != nullptr) {q.push(f->left); } // add the numbers children to
+      if (f->right != nullptr) {q.push(f->right); }
+    }
+    st += "]";
+   if(!q.empty()) {st += ",";}
+   
   }
+  st += "]";
+  return st;
+}
+  
 
 private:
+
+// string bft code for assingment 
+/*Breadth First Traversal
+--------------------------------
+Q is an empty queue
+Q.push(root)
+while !Q.empty 
+  u = Q.front(), Q.pop()
+  print u
+  for each neighbor v of u
+    Q.push(v)
+
+    make a queue summing every iteracion of every hoja first, then seperate them based on how many iterations it took to get to that queue
+
+  string BFT() const {
+    <queue> bftqueue;
+    string st;
+    bftqueue.push(root);
+    while (!bftqueue.empty()){
+      auto u = bftqueue.front(), bftqueue.pop();
+      st += u;
+      if ()
+    }
+    return st;
+  }
+*/
+
+
+
+
   struct BinaryNode {
     Comparable element;
     BinaryNode *left;
